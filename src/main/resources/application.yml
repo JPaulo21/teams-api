@@ -1,4 +1,14 @@
 spring:
     application:
         name: teams-api
+    web:
+        locale: pt-br
+        locale-resolver: fixed
+    datasource:
+        url: ${URL_DB_TEAMS}
+        username: ${USER_DB_TEAMS}
+        password: ${PASSWORD_DB_TEAMS}
 
+server:
+    error:
+        include-stacktrace: never
