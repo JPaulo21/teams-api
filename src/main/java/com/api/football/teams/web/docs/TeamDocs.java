@@ -26,6 +26,6 @@ public interface TeamDocs {
     )
     ResponseEntity<Void> createTeam(MultipartFile badgeFile, TeamRequest teamRequest, UriComponentsBuilder ucb) throws IOException;
 
-//    @Operation(summary = "Get Team by id", description = "Obter dados de um club pelo id", tags ={"Teams"})
-//    ResponseEntity<TeamResponse> getTeamById(Integer id);
+    @Operation(summary = "Get Team by id", description = "Obter dados de um club pelo id", tags ={"Teams"})
+    ResponseEntity<TeamResponse> getTeamById(Integer id);
 }

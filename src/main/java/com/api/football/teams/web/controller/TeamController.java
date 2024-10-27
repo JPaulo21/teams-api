@@ -6,6 +6,7 @@ import com.api.football.teams.domain.file.Badge;
 import com.api.football.teams.domain.file.BadgeService;
 import com.api.football.teams.web.docs.TeamDocs;
 import com.api.football.teams.web.dto.request.TeamRequest;
+import com.api.football.teams.web.dto.response.TeamResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +61,12 @@ public class TeamController implements TeamDocs {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamResponse> getTeamById(@PathVariable("id") Integer id){
+        TeamResponse teamResponse = modelMapper.map(teamService.findById(id), TeamResponse.class);
+        return ResponseEntity.ok(teamResponse);
     }
 
     @GetMapping(value = "/badge/{nickname}")
