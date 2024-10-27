@@ -6,7 +6,6 @@ import com.api.football.teams.domain.file.Badge;
 import com.api.football.teams.domain.file.BadgeService;
 import com.api.football.teams.web.docs.TeamDocs;
 import com.api.football.teams.web.dto.request.TeamRequest;
-import com.api.football.teams.web.dto.response.TeamResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +60,15 @@ public class TeamController implements TeamDocs {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping(value = "/badge/{nickname}")
+    public ResponseEntity<byte[]> getBadge(@PathVariable String nickname) throws FileNotFoundException {
+        Badge badge = badgeService.findByFilename(nickname);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + badge.getFilename() + "\"" )
+                .body(badge.getDataImage());
     }
 
 }
