@@ -1,0 +1,5 @@
+CREATE TABLE Badges (
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL UNIQUE,
+    data_image BYTEA NOT NULL
+);
