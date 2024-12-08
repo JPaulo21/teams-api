@@ -9,7 +9,7 @@ version = '1.0'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(23)
 	}
 }
 
@@ -36,6 +36,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.1'
 	implementation group: 'org.modelmapper', name: 'modelmapper-module-record', version: '1.0.0'
+	testImplementation group: 'com.h2database', name: 'h2', version: '2.3.232'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
