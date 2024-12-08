@@ -39,4 +39,7 @@ public class Team {
     @Column(name = "url_badge", nullable = false)
     private String urlBadge;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
 }
