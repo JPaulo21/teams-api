@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db-teams:
+    image: postgres:17-alpine3.20
+    container_name: db-teams
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=db-teams
+    networks:
+      - football
+
+  api-teams:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: teams-api:1.0
+    container_name: api-teams
+    ports:
+      - 8081:8081
+    environment:
+      - URL_DB_TEAMS=jdbc:postgresql://db-teams/db-teams
+      - USER_DB_TEAMS=postgres
+      - PASSWORD_DB_TEAMS=123
+    depends_on:
+      - db-teams
+    networks:
+      - football
+
+networks:
+  football:
+    driver: bridge
