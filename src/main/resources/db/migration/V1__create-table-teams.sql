@@ -6,6 +6,6 @@ CREATE TABLE teams (
    stadium VARCHAR(255) NOT NULL,
    state VARCHAR(255) NOT NULL,
    url_badge VARCHAR(255) NOT NULL,
+   enabled BOOLEAN NOT NULL,
    CONSTRAINT pk_teams PRIMARY KEY (id)
-
 );
