@@ -16,5 +16,6 @@ spring:
         password: ${PASSWORD_DB_TEAMS}
 
 server:
+    port: ${PORT}
     error:
         include-stacktrace: never
