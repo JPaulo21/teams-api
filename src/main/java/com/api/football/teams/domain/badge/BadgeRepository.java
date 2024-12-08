@@ -1,4 +1,4 @@
-package com.api.football.teams.domain.file;
+package com.api.football.teams.domain.badge;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

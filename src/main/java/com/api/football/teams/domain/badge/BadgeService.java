@@ -1,4 +1,4 @@
-package com.api.football.teams.domain.file;
+package com.api.football.teams.domain.badge;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
