@@ -2,8 +2,8 @@ package com.api.football.teams.web.controller;
 
 import com.api.football.teams.domain.Team;
 import com.api.football.teams.domain.TeamService;
-import com.api.football.teams.domain.file.Badge;
-import com.api.football.teams.domain.file.BadgeService;
+import com.api.football.teams.domain.badge.Badge;
+import com.api.football.teams.domain.badge.BadgeService;
 import com.api.football.teams.web.docs.TeamDocs;
 import com.api.football.teams.web.dto.request.TeamRequest;
 import com.api.football.teams.web.dto.response.TeamResponse;
@@ -11,6 +11,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -69,6 +75,18 @@ public class TeamController implements TeamDocs {
         return ResponseEntity.ok(teamResponse);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<TeamResponse>> getTeamByFilter(@ParameterObject TeamRequest teamRequest,
+                                                              @PageableDefault Pageable pageable){
+        Page<Team> teamPage = teamService.findByObjectFilter(modelMapper.map(teamRequest, Team.class), pageable);
+        List<TeamResponse> teamResponseList = teamPage
+                .stream()
+                .map((team) -> modelMapper.map(team, TeamResponse.class))
+                .toList();
+        Page<TeamResponse> teamResponsePage = new PageImpl<>(teamResponseList, teamPage.getPageable(), teamPage.getSize());
+        return ResponseEntity.ok(teamResponsePage);
+    }
+
     @GetMapping(value = "/badge/{nickname}")
     public ResponseEntity<byte[]> getBadge(@PathVariable String nickname) throws FileNotFoundException {
         Badge badge = badgeService.findByFilename(nickname);
@@ -77,5 +95,9 @@ public class TeamController implements TeamDocs {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + badge.getFilename() + "\"" )
                 .body(badge.getDataImage());
     }
+
+    // TODO - Implementar PUT e PATCH
+
+    // TODO - Implementar exclusão lógica do Team
 
 }
