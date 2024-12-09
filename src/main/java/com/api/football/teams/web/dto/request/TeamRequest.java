@@ -2,15 +2,12 @@ package com.api.football.teams.web.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDate;
-import java.util.Base64;
 
 public record TeamRequest(
         @NotBlank
