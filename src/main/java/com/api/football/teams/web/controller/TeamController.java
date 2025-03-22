@@ -30,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/teams")
+@RequestMapping("/v1/teams")
 @RequiredArgsConstructor
 public class TeamController implements TeamDocs {
 

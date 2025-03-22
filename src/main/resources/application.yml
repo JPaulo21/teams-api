@@ -16,6 +16,8 @@ spring:
         password: ${PASSWORD_DB_TEAMS}
 
 server:
-    port: ${PORT}
+    port: ${PORT:8080}
     error:
         include-stacktrace: never
+    servlet:
+        context-path: /football-api
