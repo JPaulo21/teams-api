@@ -33,5 +33,5 @@ public interface TeamDocs {
     ResponseEntity<TeamResponse> getTeamById(Integer id);
 
     @Operation(summary = "Get Team by attribute", description = "Obter dados de um club pelo id", tags ={"Teams"})
-    public ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamRequest teamRequest, Pageable pageable);
+    ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamRequest teamRequest, Pageable pageable);
 }
