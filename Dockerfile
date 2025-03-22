@@ -6,8 +6,8 @@ LABEL maintaner="JP"
 # ENV USER_DB_TEAMS=postgres
 # ENV PASSWORD_DB_TEAMS=123
 
-EXPOSE 8081
-ENV PORT=8081
+EXPOSE 8080
+ENV PORT=8080
 
 COPY build/libs/teams-api*.jar teams-api.jar
 

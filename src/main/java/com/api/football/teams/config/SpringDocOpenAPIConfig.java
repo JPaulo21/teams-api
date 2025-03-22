@@ -5,13 +5,6 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.tags.Tag;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -29,5 +22,4 @@ import java.util.Arrays;
         }
 )
 public class SpringDocOpenAPIConfig {
-
 }

@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=db-teams
     networks:
       - football
+    volumes:
+      - db-teams:/var/lib/postgresql/data
 
   api-teams:
     build:
@@ -16,7 +18,7 @@ services:
     image: teams-api:1.0
     container_name: api-teams
     ports:
-      - 8081:8081
+      - 8080:8080
     environment:
       - URL_DB_TEAMS=jdbc:postgresql://db-teams/db-teams
       - USER_DB_TEAMS=postgres
@@ -29,3 +31,7 @@ services:
 networks:
   football:
     driver: bridge
+
+volumes:
+  db-teams:
+    driver: local
