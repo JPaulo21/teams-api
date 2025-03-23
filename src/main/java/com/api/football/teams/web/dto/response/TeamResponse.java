@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Data
 public class TeamResponse{
 
+        @NotNull
+        private Integer id;
         @NotBlank
         private String name;
         @NotNull

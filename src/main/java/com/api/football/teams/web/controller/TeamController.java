@@ -5,6 +5,7 @@ import com.api.football.teams.domain.TeamService;
 import com.api.football.teams.domain.badge.Badge;
 import com.api.football.teams.domain.badge.BadgeService;
 import com.api.football.teams.web.docs.TeamDocs;
+import com.api.football.teams.web.dto.request.TeamFilterRequest;
 import com.api.football.teams.web.dto.request.TeamRequest;
 import com.api.football.teams.web.dto.response.TeamResponse;
 import jakarta.validation.Valid;
@@ -51,7 +52,7 @@ public class TeamController implements TeamDocs {
                 .build());
 
         URI locationBadge = ucb.cloneBuilder()
-                .path("/api/v1/teams/badge/{filaname}")
+                .path("/v1/teams/badge/{filaname}")
                 .buildAndExpand(badge.getFilename())
                 .toUri();
 
@@ -62,7 +63,7 @@ public class TeamController implements TeamDocs {
 
         Team teamSaved = teamService.save(modelMapper.map(teamRequest, Team.class));
         URI location = ucb.cloneBuilder()
-                .path("/api/v1/teams/{id}")
+                .path("/v1/teams/{id}")
                 .buildAndExpand(teamSaved.getId())
                 .toUri();
 
@@ -76,7 +77,7 @@ public class TeamController implements TeamDocs {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TeamResponse>> getTeamByFilter(@ParameterObject TeamRequest teamRequest,
+    public ResponseEntity<Page<TeamResponse>> getTeamByFilter(@ParameterObject TeamFilterRequest teamRequest,
                                                               @PageableDefault Pageable pageable){
         Page<Team> teamPage = teamService.findByObjectFilter(modelMapper.map(teamRequest, Team.class), pageable);
         List<TeamResponse> teamResponseList = teamPage
@@ -98,6 +99,10 @@ public class TeamController implements TeamDocs {
 
     // TODO - Implementar PUT e PATCH
 
-    // TODO - Implementar exclusão lógica do Team
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable("id") Integer id){
+        teamService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

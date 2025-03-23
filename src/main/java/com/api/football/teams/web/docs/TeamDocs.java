@@ -1,5 +1,6 @@
 package com.api.football.teams.web.docs;
 
+import com.api.football.teams.web.dto.request.TeamFilterRequest;
 import com.api.football.teams.web.dto.request.TeamRequest;
 import com.api.football.teams.web.dto.response.TeamResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,5 +34,9 @@ public interface TeamDocs {
     ResponseEntity<TeamResponse> getTeamById(Integer id);
 
     @Operation(summary = "Get Team by attribute", description = "Obter dados de um club pelo id", tags ={"Teams"})
-    ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamRequest teamRequest, Pageable pageable);
+    ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamFilterRequest teamRequest, Pageable pageable);
+
+    @Operation(summary = "Delete team by id", description = "Delete team by id", tags ={"Teams"})
+    @ApiResponses(value = @ApiResponse(responseCode = "204 ", description = "Team"))
+    ResponseEntity<Void> deleteTeam(Integer id);
 }

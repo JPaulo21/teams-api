@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 @Slf4j
@@ -39,5 +40,13 @@ public class TeamService {
                 .withIgnoreCase();
         Example<Team> teamExample = Example.of(team, exampleMatcher);
         return teamRepository.findAll(teamExample, pageable);
+    }
+
+    public void delete(Integer id) {
+        Team team = teamRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Team id=%s not found", id))
+        );
+        team.setEnabled(FALSE);
+        teamRepository.save(team);
     }
 }
