@@ -14,7 +14,7 @@ Api Football Teams
 - Spring Boot 3.3
 - PostgreSQL 17
 - Gradle 8.5
-- 
+
 ### Build executable Jar from project
 
 ```
