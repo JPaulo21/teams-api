@@ -18,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Tag(name = "Teams", description = "Endpoints for teams")
 public interface TeamDocs {
 
@@ -25,7 +27,7 @@ public interface TeamDocs {
     @ApiResponses(value =
         @ApiResponse(
             responseCode = "201", description = "Team",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamDocs.class))
+                content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = TeamDocs.class))
         )
     )
     ResponseEntity<Void> createTeam(@Parameter(description = "Arquivo de badge para upload") MultipartFile badgeFile, TeamRequest teamRequest, UriComponentsBuilder ucb) throws IOException;
