@@ -40,4 +40,13 @@ public class Team {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
+    public Team(String name, String nickname, LocalDate foundationDate, String stadium, String state, String urlBadge, Boolean enabled) {
+        this.name = name;
+        this.nickname = nickname;
+        this.foundationDate = foundationDate;
+        this.stadium = stadium;
+        this.state = state;
+        this.urlBadge = urlBadge;
+        this.enabled = enabled;
+    }
 }
