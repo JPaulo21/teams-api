@@ -1,5 +1,6 @@
 package com.api.football.teams.domain;
 
+import com.api.football.teams.FakerUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -10,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.stream.Stream;
 
-import static com.api.football.teams.common.TeamConstants.TEAM;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
@@ -24,7 +24,7 @@ public class TeamRepositoryTest {
 
     @Test
     public void createTeam_withValidData_returnsTeam(){
-        Team team = teamRepository.save(TEAM);
+         Team team = teamRepository.save(FakerUtils.entity(Team.class));
 
         Team sut = testEntityManager.find(Team.class, team.getId());
 
@@ -33,7 +33,7 @@ public class TeamRepositoryTest {
 
     @Test
     public void createTeam_withExistingData_throwsException(){
-        Team team = testEntityManager.persistFlushFind(TEAM);
+        Team team = testEntityManager.persistFlushFind(FakerUtils.entity(Team.class));
         testEntityManager.detach(team);
         team.setId(null);
         assertThatCode(() ->teamRepository.save(team))
