@@ -1,6 +1,6 @@
 package com.api.football.teams.domain;
 
-import com.api.football.teams.FakerUtils;
+import com.api.football.teams.utils.FakerUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

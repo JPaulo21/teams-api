@@ -30,13 +30,13 @@ public interface TeamDocs {
                 content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = TeamDocs.class))
         )
     )
-    ResponseEntity<Void> createTeam(@Parameter(description = "Arquivo de badge para upload") MultipartFile badgeFile, TeamRequest teamRequest, UriComponentsBuilder ucb) throws IOException;
+    ResponseEntity<Void> createTeam(@Parameter(description = "Arquivo de badge para upload") MultipartFile badgeFile, TeamRequest teamRequest, UriComponentsBuilder ucb);
 
     @Operation(summary = "Get Team by id", description = "Obter dados de um club pelo id", tags ={"Teams"})
     ResponseEntity<TeamResponse> getTeamById(Integer id);
 
     @Operation(summary = "Get Team by attribute", description = "Obter dados de um club pelo id", tags ={"Teams"})
-    ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamFilterRequest teamRequest, Pageable pageable);
+    ResponseEntity<Page<TeamResponse>> getTeamByFilter(TeamFilterRequest teamRequest, @Parameter(hidden = true) Pageable pageable);
 
     @Operation(summary = "Delete team by id", description = "Delete team by id", tags ={"Teams"})
     @ApiResponses(value = @ApiResponse(responseCode = "204 ", description = "Team"))

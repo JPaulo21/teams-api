@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -41,28 +40,11 @@ public class TeamController implements TeamDocs {
 
     @PostMapping
     public ResponseEntity<Void> createTeam(@RequestPart("badge") MultipartFile fileBadge
-            , @RequestPart("team") @Valid TeamRequest teamRequestDTO
-            , UriComponentsBuilder ucb) throws IOException {
-
-        String extension = fileBadge.getOriginalFilename().substring(fileBadge.getOriginalFilename().lastIndexOf('.'));
-        String filename = teamRequestDTO.nickname().toLowerCase()+extension;
-        Badge badge = badgeService.save(Badge.builder()
-                .filename(filename)
-                .dataImage(fileBadge.getBytes())
-                .build());
-
-        URI locationBadge = ucb.cloneBuilder()
-                .path("/v1/teams/badge/{filaname}")
-                .buildAndExpand(badge.getFilename())
-                .toUri();
-
-        Team teamRequest = modelMapper.map(teamRequestDTO, Team.class);
-        teamRequest.setUrlBadge(locationBadge.toString());
-
-        // ------------------------------------
-
-        Team teamSaved = teamService.save(modelMapper.map(teamRequest, Team.class));
-        URI location = ucb.cloneBuilder()
+                                        , @RequestPart("team") @Valid TeamRequest teamRequestDTO
+                                        , UriComponentsBuilder ucb) {
+        Team team = modelMapper.map(teamRequestDTO, Team.class);
+        Team teamSaved = teamService.save(team, fileBadge);
+        URI location = ucb
                 .path("/v1/teams/{id}")
                 .buildAndExpand(teamSaved.getId())
                 .toUri();
@@ -78,7 +60,7 @@ public class TeamController implements TeamDocs {
 
     @GetMapping
     public ResponseEntity<Page<TeamResponse>> getTeamByFilter(@ParameterObject TeamFilterRequest teamRequest,
-                                                              @PageableDefault Pageable pageable){
+                                                              @PageableDefault(sort = {"id"}) Pageable pageable){
         Page<Team> teamPage = teamService.findByObjectFilter(modelMapper.map(teamRequest, Team.class), pageable);
         List<TeamResponse> teamResponseList = teamPage
                 .stream()

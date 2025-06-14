@@ -1,4 +1,4 @@
-package com.api.football.teams;
+package com.api.football.teams.utils;
 
 import net.datafaker.Faker;
 
