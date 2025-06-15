@@ -16,7 +16,19 @@ java {
 
 jacoco {
 	toolVersion = "0.8.13"
-	reportsDirectory = layout.buildDirectory.dir('reports/jacoco')
+	reportsDirectory = layout.buildDirectory.dir('reports/jacocoReport')
+}
+
+jacocoTestReport {
+	dependsOn('test') // Garante que os testes sejam executados antes do relatório ser gerado
+	afterEvaluate {
+		classDirectories.setFrom(
+			fileTree(
+					dir: "${layout.buildDirectory.get().asFile}/classes/java/main",
+					excludes: ['/com/api/football/teams/config/*'] // Exclui o pacote de configuração
+			)
+		)
+	}
 }
 
 configurations {

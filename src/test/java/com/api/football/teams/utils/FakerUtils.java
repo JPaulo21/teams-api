@@ -1,6 +1,8 @@
 package com.api.football.teams.utils;
 
 import net.datafaker.Faker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -10,10 +12,11 @@ import java.util.Locale;
 
 public class FakerUtils {
 
-    private final static Faker faker = new Faker(new Locale("pt", "BR"));
+    private final static Faker faker = new Faker(Locale.of("pt", "BR"));
+    private static final Logger log = LoggerFactory.getLogger(FakerUtils.class);
 
     public static <T> T entity(Class<?> clazz) {
-        T target = null;
+        T target;
         try {
             target = (T) clazz.getDeclaredConstructor().newInstance();
             Field[] fields = clazz.getDeclaredFields();
@@ -46,6 +49,7 @@ public class FakerUtils {
             return target;
         } catch (IllegalAccessException | InvocationTargetException |
                  InstantiationException | NoSuchMethodException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
