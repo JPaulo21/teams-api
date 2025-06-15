@@ -58,10 +58,9 @@ public class TeamService {
         return teamRepository.findAll(teamExample, pageable);
     }
 
+    @Transactional
     public void delete(Integer id) {
-        Team team = teamRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Team id=%s not found", id))
-        );
+        Team team = this.findById(id);
         team.setEnabled(FALSE);
         teamRepository.save(team);
     }
